@@ -45,11 +45,7 @@ public class NovoCliente {
                     passageiro.setNome(tfNome.getText());
                     PassageiroDao passageiroDao = new PassageiroDao();
                     try {
-                        boolean createPass = passageiroDao.create(passageiro);
-                        if (createPass){
-                            JOptionPane.showMessageDialog(janela,"Cadastro efetuado com sucesso","Cadastro Efetuado", JOptionPane.PLAIN_MESSAGE);
-
-                        }
+                        passageiroDao.create(passageiro);
                     } catch (SQLException er){
                         System.err.println("Erro ao salvar Passageiro " + er.getMessage());
                     }
