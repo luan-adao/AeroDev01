@@ -10,6 +10,7 @@ import br.com.aerodev01.entity.Funcionario;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -49,15 +50,27 @@ public class AeroDev01 {
                 if (!tfLoginName.getText().isEmpty() && !tfLoginPassword.getText().isEmpty()) {
                     FuncionarioDao funDao = new FuncionarioDao();
                     try {
+                        boolean logar = funDao.Login(tfLoginName.getText(), tfLoginPassword.getText());
+                        System.out.print(logar);
+                        if (logar){
+                            new PainelDeControle(true);
+                            janela.dispose();
+                        } else {
+                            JOptionPane.showMessageDialog(janela, "Login Errado", "Erro de login", JOptionPane.ERROR_MESSAGE);
+                        }
+                        /*
                         for (Funcionario fun: funDao.Read()) {
                             if (tfLoginName.getText().equals(fun.getCpf()) && tfLoginPassword.getText().equals(fun.getSenha())){
                                 //JOptionPane.showMessageDialog(janela, "Login Correto");
                                 new PainelDeControle(true);
                                 janela.dispose();
+                                break;
                             } else {
                                 JOptionPane.showMessageDialog(janela, "Login Errado", "Erro de login", JOptionPane.ERROR_MESSAGE);
                             }
                         }
+                        */
+                        
                     } catch (SQLException ex) {
                         Logger.getLogger(AeroDev01.class.getName()).log(Level.SEVERE, null, ex);
                     }
