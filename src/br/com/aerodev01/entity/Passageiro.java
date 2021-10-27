@@ -12,6 +12,8 @@ package br.com.aerodev01.entity;
 public class Passageiro {
     private String cpf;
     private String nome;
+    private String cidade;
+    private String sexo;
 
     /**
      * @return the cpf
@@ -39,6 +41,34 @@ public class Passageiro {
      */
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    /**
+     * @return the cidade
+     */
+    public String getCidade() {
+        return cidade;
+    }
+
+    /**
+     * @param cidade the cidade to set
+     */
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+
+    /**
+     * @return the sexo
+     */
+    public String getSexo() {
+        return sexo;
+    }
+
+    /**
+     * @param sexo the sexo to set
+     */
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
     }
     
     

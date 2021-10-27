@@ -50,9 +50,9 @@ public class AeroDev01 {
                     FuncionarioDao funDao = new FuncionarioDao();
                     try {
                         for (Funcionario fun: funDao.Read()) {
-                            if (tfLoginName.getText().equals(fun.getNome()) && tfLoginPassword.getText().equals(fun.getSenha())){
+                            if (tfLoginName.getText().equals(fun.getCpf()) && tfLoginPassword.getText().equals(fun.getSenha())){
                                 //JOptionPane.showMessageDialog(janela, "Login Correto");
-                                new PainelDeControle();
+                                new PainelDeControle(true);
                                 janela.dispose();
                             } else {
                                 JOptionPane.showMessageDialog(janela, "Login Errado", "Erro de login", JOptionPane.ERROR_MESSAGE);

@@ -25,11 +25,13 @@ public class PassageiroDao implements Serializable{
     public void create(Passageiro passageiro)throws SQLException {
         try {
             con = ConnectionFactory.getConnection();
-            String sql = "INSERT INTO Passageiro (pas_cpf, pas_nome) VALUES (?, ?)";
+            String sql = "INSERT INTO Passageiro (pas_cpf, pas_nome, pas_sexo, pas_cidade) VALUES (?, ?, ?, ?)";
             //stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt = con.prepareStatement(sql);
             stmt.setString(1, passageiro.getCpf());
             stmt.setString(2, passageiro.getNome());
+            stmt.setString(3, passageiro.getSexo());
+            stmt.setString(4, passageiro.getCidade());
             stmt.executeUpdate();
             //rs = stmt.getGeneratedKeys();
             //rs.next();

@@ -15,19 +15,22 @@ import javax.swing.JPanel;
  * @author luan
  */
 public class PainelDeControle {
-    JButton btnCadastrar;
             
-    public PainelDeControle() {
+    public PainelDeControle(boolean isAdmin) {
         Window janela = new Window(false);
         
         JPanel painel = new JPanel();
         painel.setLayout(null);
         
         janela.addLabelTitulo(painel, "Painel de Controle", 200, 230, 20);
-        btnCadastrar = janela.addButton(painel, "Novo Cliente", 100,150, 200, 40);
+        JButton btnCadastrar = janela.addButton(painel, "Novo Cliente", 100,150, 200, 40);
         JButton btnComprar = janela.addButton(painel, "Comprar Passagem", 320, 150, 200, 40);
         JButton btnPasCadastradas = janela.addButton(painel, "Passagens", 100, 210, 200, 40);
         JButton btnCancelarCompra = janela.addButton(painel, "Cancelar Compra", 320, 210, 200, 40);
+        JButton btnNovoFuncionario = janela.addButton(painel, "Novo Funcionario", 100, 270, 200, 40);
+        
+        btnNovoFuncionario.setEnabled(isAdmin);
+        
         
         janela.getContentPane().add(painel);
         
