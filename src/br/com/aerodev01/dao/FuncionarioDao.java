@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -34,9 +35,13 @@ public class FuncionarioDao implements Serializable{
             stmt.setString(3, funcionario.getSenha());
             stmt.executeUpdate();
             //rs = stmt.getGeneratedKeys();
+            JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso :)");
             rs.next();
             //funcionario.setCpf(rs.getString("fun_cpf"));
         } catch (SQLException e) {
+            if (e.getErrorCode() == 1062) {
+                JOptionPane.showMessageDialog(null, "Esta Pessoa já esta cadastrada", "Pessoa já é Cliente", JOptionPane.WARNING_MESSAGE);
+            }
             System.err.println("Ocorreu um erro ao salvar: " + e.getMessage());
         }
     }
@@ -55,10 +60,32 @@ public class FuncionarioDao implements Serializable{
                 funcionario.setSenha(rs.getString("fun_senha"));
                 lista.add(funcionario);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.err.println("Ocorreu um erro ao ler: " + e.getMessage());
         }
         return lista;
+    }
+    
+    public boolean Login(String cpf, String pass) throws SQLException {
+        boolean login = false;
+        try {
+            con = ConnectionFactory.getConnection();
+            String sql = "SELECT fun_cpf, fun_senha FROM Funcionario";
+            stmt = con.prepareStatement(sql);
+            //stmt.setString(1, cpf);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                if (cpf.equals(rs.getString("fun_cpf")) && pass.equals(rs.getString("fun_senha"))) {
+                    login = true;
+                    break;
+                } else {
+                    login = false;
+                }   
+            }
+        } catch (SQLException e) {
+            System.err.println("ERRO" + e.getMessage());
+        }
+        return login;
     }
     
     public void Update(Funcionario funcionario) throws SQLException {
