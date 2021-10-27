@@ -5,11 +5,12 @@
         <group>
             <file>file:/home/luan/NetBeansProjects/AeroDev01/src/br/com/aerodev01/dao/ConnectionFactory.java</file>
             <file>file:/home/luan/NetBeansProjects/AeroDev01/src/br/com/aerodev01/view/PainelDeControle.java</file>
-            <file>file:/home/luan/NetBeansProjects/AeroDev01/src/br/com/aerodev01/dao/FuncionarioDao.java</file>
             <file>file:/home/luan/NetBeansProjects/AeroDev01/src/br/com/aerodev01/view/Window.java</file>
+            <file>file:/home/luan/NetBeansProjects/AeroDev01/src/br/com/aerodev01/dao/FuncionarioDao.java</file>
             <file>file:/home/luan/NetBeansProjects/AeroDev01/src/br/com/aerodev01/entity/Funcionario.java</file>
             <file>file:/home/luan/NetBeansProjects/AeroDev01/src/br/com/aerodev01/view/AeroDev01.java</file>
             <file>file:/home/luan/NetBeansProjects/AeroDev01/src/br/com/aerodev01/entity/Passageiro.java</file>
+            <file>file:/home/luan/NetBeansProjects/AeroDev01/src/br/com/aerodev01/view/NovoFuncionario.java</file>
             <file>file:/home/luan/NetBeansProjects/AeroDev01/src/br/com/aerodev01/view/NovoCliente.java</file>
             <file>file:/home/luan/NetBeansProjects/AeroDev01/src/br/com/aerodev01/dao/PassageiroDao.java</file>
         </group>
