@@ -23,7 +23,7 @@ public class PainelDeControle {
         painel.setLayout(null);
         
         janela.addLabelTitulo(painel, "Painel de Controle", 200, 230, 20);
-        JButton btnCadastrar = janela.addButton(painel, "Novo Cliente", 100,150, 200, 40);
+        JButton btnNovoCliente = janela.addButton(painel, "Novo Cliente", 100,150, 200, 40);
         JButton btnComprar = janela.addButton(painel, "Comprar Passagem", 320, 150, 200, 40);
         JButton btnPasCadastradas = janela.addButton(painel, "Passagens", 100, 210, 200, 40);
         JButton btnCancelarCompra = janela.addButton(painel, "Cancelar Compra", 320, 210, 200, 40);
@@ -36,7 +36,7 @@ public class PainelDeControle {
         
         janela.setVisible(true);
         
-        btnCadastrar.addActionListener(new ActionListener() {
+        btnNovoCliente.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println(".actionPerformed()");
