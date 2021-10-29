@@ -6,6 +6,9 @@
 package br.com.aerodev01.view;
 
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -29,6 +32,17 @@ public class Window extends JFrame{
         super.setSize(600, 450);
         super.setLocationRelativeTo(null);
         super.setResizable(false);
+    }
+    
+    public void setVisibleWindowListener(JFrame frame) {
+        frame.setVisible(false);
+        WindowListener windowListener = new WindowAdapter() {
+            public void windowClosing(WindowEvent evt) {
+                frame.setVisible(true);
+            }
+        };
+        
+        addWindowListener(windowListener);
     }
     
     public void addLabelTitulo(JPanel painel, String text, int x, int width, int FontSize) {
