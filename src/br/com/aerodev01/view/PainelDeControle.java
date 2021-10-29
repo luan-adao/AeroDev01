@@ -27,20 +27,35 @@ public class PainelDeControle {
         JButton btnComprar = janela.addButton(painel, "Comprar Passagem", 320, 150, 200, 40);
         JButton btnPasCadastradas = janela.addButton(painel, "Passagens", 100, 210, 200, 40);
         JButton btnCancelarCompra = janela.addButton(painel, "Cancelar Compra", 320, 210, 200, 40);
-        JButton btnNovoFuncionario = janela.addButton(painel, "Novo Funcionario", 100, 270, 200, 40);
+        JButton btnNovoFuncionario = janela.addButton(painel, "Novo Funcionario", 100, 270, 200, 40);   
+        JButton btnNovoAviao = janela.addButton(painel, "Novo Aviao", 320, 270, 200, 40);
         
         btnNovoFuncionario.setEnabled(isAdmin);
         
         
         janela.getContentPane().add(painel);
-        
         janela.setVisible(true);
+        
+        btnNovoAviao.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println(".actionPerformed()");
+                new NovoAviao(janela);
+            }
+        });
+        
+        btnNovoFuncionario.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new NovoFuncionario(janela);
+            }
+        });
         
         btnNovoCliente.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println(".actionPerformed()");
-                NovoCliente novoCliente = new NovoCliente();
+                NovoCliente novoCliente = new NovoCliente(janela);
             }
         });
         
