@@ -3,7 +3,7 @@ use aerodevdb1;
 
 create table Aviao(
     avi_id int primary key auto_increment,
-    avi_nome varchar(30) not null,
+    avi_nome varchar(30) not null unique,
     avi_assentos int not null
 );
 
