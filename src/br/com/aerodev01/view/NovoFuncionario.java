@@ -10,6 +10,7 @@ import br.com.aerodev01.entity.Funcionario;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -19,7 +20,7 @@ import javax.swing.JTextField;
  * @author luan
  */
 public class NovoFuncionario {
-    public NovoFuncionario() {
+    public NovoFuncionario(JFrame frame) {
         Window janela = new Window(true);
         JPanel painel = new JPanel();
         painel.setLayout(null);
@@ -35,6 +36,7 @@ public class NovoFuncionario {
         
         janela.getContentPane().add(painel);
         janela.setVisible(true);
+        janela.setVisibleWindowListener(frame);
         
         buttonCadastrar.addActionListener(new ActionListener() {
             @Override
@@ -58,6 +60,6 @@ public class NovoFuncionario {
     }
     
     public static void main(String[] args) {
-        new NovoFuncionario();
+        //new NovoFuncionario();
     }
 }

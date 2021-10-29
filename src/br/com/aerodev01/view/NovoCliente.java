@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -22,7 +23,7 @@ import javax.swing.JTextField;
  * @author luan
  */
 public class NovoCliente {
-    public NovoCliente() {
+    public NovoCliente(JFrame frame) {
         Window janela = new Window(true);
         JPanel painel = new JPanel();
         painel.setLayout(null);
@@ -51,6 +52,7 @@ public class NovoCliente {
         
         janela.getContentPane().add(painel);
         janela.setVisible(true);
+        janela.setVisibleWindowListener(frame);
         
         btnCadastrar.addActionListener(new ActionListener() {
             @Override
@@ -83,6 +85,6 @@ public class NovoCliente {
         
     }
     public static void main(String[] args) {
-        new NovoCliente();
+        //new NovoCliente();
     }
 }
