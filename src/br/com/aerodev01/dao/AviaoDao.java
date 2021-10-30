@@ -12,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -38,5 +40,24 @@ public class AviaoDao implements Serializable {
         } catch (Exception e) {
             System.err.println("Ocorreu um erro ao salvar" + e.getMessage());
         }
+    }
+    public List<Aviao> ListAll() throws SQLException {
+        List<Aviao> lista = new ArrayList<>();
+        try {
+            con = ConnectionFactory.getConnection();
+            String sql = "SELECT * FROM Aviao";
+            stmt = con.prepareStatement(sql);
+            stmt.executeQuery();
+            while (rs.next()) {
+                Aviao aviao = new Aviao();
+                aviao.setId(rs.getInt("avi_id"));
+                aviao.setNome(rs.getString("avi_nome"));
+                aviao.setAssentos(rs.getInt("avi_assentos"));
+                lista.add(aviao);
+            }
+        } catch (Exception e) {
+            System.err.println("Erro ao listar " + e.getMessage());
+        }
+        return lista;
     }
 }
