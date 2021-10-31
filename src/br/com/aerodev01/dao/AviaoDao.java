@@ -34,10 +34,11 @@ public class AviaoDao implements Serializable {
             stmt.setInt(2, aviao.getAssentos());
             stmt.executeUpdate();
             rs = stmt.getGeneratedKeys();
-            JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso :)");
             rs.next();
-            aviao.setId(rs.getInt("avi_id"));
-        } catch (Exception e) {
+            aviao.setId(rs.getInt(1));
+            JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso :)");
+        } catch (SQLException e) {
+            ErrorCheck.DuplicateEntry(e, "Avião já está cadastrado no sistema", "Erro: Avião já existe");
             System.err.println("Ocorreu um erro ao salvar" + e.getMessage());
         }
     }
@@ -47,7 +48,7 @@ public class AviaoDao implements Serializable {
             con = ConnectionFactory.getConnection();
             String sql = "SELECT * FROM Aviao";
             stmt = con.prepareStatement(sql);
-            stmt.executeQuery();
+            rs = stmt.executeQuery();
             while (rs.next()) {
                 Aviao aviao = new Aviao();
                 aviao.setId(rs.getInt("avi_id"));
