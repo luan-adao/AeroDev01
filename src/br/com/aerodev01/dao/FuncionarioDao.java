@@ -23,6 +23,7 @@ public class FuncionarioDao implements Serializable{
     protected Connection con;
     protected PreparedStatement stmt = null;
     protected ResultSet rs = null;
+    public boolean isAdmin = false;
     
     public void Create(Funcionario funcionario) throws SQLException {
         try {
@@ -77,6 +78,9 @@ public class FuncionarioDao implements Serializable{
             while (rs.next()) {
                 if (cpf.equals(rs.getString("fun_cpf")) && pass.equals(rs.getString("fun_senha"))) {
                     login = true;
+                    if (rs.getString("fun_cpf").equals("admin")) {
+                        this.isAdmin = true;
+                    }
                     break;
                 } else {
                     login = false;

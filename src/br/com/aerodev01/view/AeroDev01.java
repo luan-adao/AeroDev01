@@ -6,11 +6,9 @@
 package br.com.aerodev01.view;
 
 import br.com.aerodev01.dao.FuncionarioDao;
-import br.com.aerodev01.entity.Funcionario;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -53,7 +51,11 @@ public class AeroDev01 {
                         boolean logar = funDao.Login(tfLoginName.getText(), tfLoginPassword.getText());
                         System.out.print(logar);
                         if (logar){
-                            new PainelDeControle(true);
+                            if (funDao.isAdmin) {
+                                new PainelDeControle(true);   
+                            } else {
+                                new PainelDeControle(false);
+                            }
                             janela.dispose();
                         } else {
                             JOptionPane.showMessageDialog(janela, "Login Errado", "Erro de login", JOptionPane.ERROR_MESSAGE);
