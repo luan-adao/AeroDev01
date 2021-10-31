@@ -40,9 +40,7 @@ public class FuncionarioDao implements Serializable{
             rs.next();
             //funcionario.setCpf(rs.getString("fun_cpf"));
         } catch (SQLException e) {
-            if (e.getErrorCode() == 1062) {
-                JOptionPane.showMessageDialog(null, "Esta Pessoa já esta cadastrada", "Pessoa já é Cliente", JOptionPane.WARNING_MESSAGE);
-            }
+            ErrorCheck.DuplicateEntry(e, "Esta Pessoa já é funcionário", "Erro: Funcionário ja está cadastrado");
             System.err.println("Ocorreu um erro ao salvar: " + e.getMessage());
         }
     }
