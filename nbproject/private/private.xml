@@ -2,6 +2,18 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/home/luan/NetBeansProjects/AeroDev01/src/br/com/aerodev01/view/NovoAviao.java</file>
+            <file>file:/home/luan/NetBeansProjects/AeroDev01/src/br/com/aerodev01/view/NovaViagem.java</file>
+            <file>file:/home/luan/NetBeansProjects/AeroDev01/src/br/com/aerodev01/view/PainelDeControle.java</file>
+            <file>file:/home/luan/NetBeansProjects/AeroDev01/src/br/com/aerodev01/dao/AviaoDao.java</file>
+            <file>file:/home/luan/NetBeansProjects/AeroDev01/src/br/com/aerodev01/dao/FuncionarioDao.java</file>
+            <file>file:/home/luan/NetBeansProjects/AeroDev01/src/br/com/aerodev01/view/Window.java</file>
+            <file>file:/home/luan/NetBeansProjects/AeroDev01/src/br/com/aerodev01/entity/Aviao.java</file>
+            <file>file:/home/luan/NetBeansProjects/AeroDev01/src/br/com/aerodev01/view/AeroDev01.java</file>
+            <file>file:/home/luan/NetBeansProjects/AeroDev01/src/br/com/aerodev01/dao/ErrorCheck.java</file>
+            <file>file:/home/luan/NetBeansProjects/AeroDev01/src/br/com/aerodev01/view/NovoCliente.java</file>
+            <file>file:/home/luan/NetBeansProjects/AeroDev01/src/br/com/aerodev01/dao/PassageiroDao.java</file>
+        </group>
     </open-files>
 </project-private>
