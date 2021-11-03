@@ -40,8 +40,11 @@ public class AviaoDao implements Serializable {
         } catch (SQLException e) {
             ErrorCheck.DuplicateEntry(e, "Avião já está cadastrado no sistema", "Erro: Avião já existe");
             System.err.println("Ocorreu um erro ao salvar" + e.getMessage());
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
         }
     }
+    
     public List<Aviao> ListAll() throws SQLException {
         List<Aviao> lista = new ArrayList<>();
         try {
@@ -58,7 +61,29 @@ public class AviaoDao implements Serializable {
             }
         } catch (Exception e) {
             System.err.println("Erro ao listar " + e.getMessage());
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
         }
         return lista;
     }
+    
+    public Integer pesquisaPorNome(String nome) {
+        Integer idAviao = 0;
+        try {
+            con = ConnectionFactory.getConnection();
+            String sql = "SELECT avi_id FROM Aviao where avi_nome=?";
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, nome);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                idAviao = rs.getInt("avi_id");                
+            }
+        } catch (Exception e) {
+            System.err.println("Erro ao pesquisar " + e.getMessage());
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        return idAviao;
+    }
+    
 }
