@@ -42,6 +42,8 @@ public class FuncionarioDao implements Serializable{
         } catch (SQLException e) {
             ErrorCheck.DuplicateEntry(e, "Esta Pessoa já é funcionário", "Erro: Funcionário ja está cadastrado");
             System.err.println("Ocorreu um erro ao salvar: " + e.getMessage());
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
         }
     }
     
@@ -61,6 +63,8 @@ public class FuncionarioDao implements Serializable{
             }
         } catch (SQLException e) {
             System.err.println("Ocorreu um erro ao ler: " + e.getMessage());
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
         }
         return lista;
     }
@@ -86,6 +90,8 @@ public class FuncionarioDao implements Serializable{
             }
         } catch (SQLException e) {
             System.err.println("ERRO" + e.getMessage());
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
         }
         return login;
     }
