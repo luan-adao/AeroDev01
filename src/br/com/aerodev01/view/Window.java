@@ -9,17 +9,16 @@ import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
+import java.util.Vector;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-/**
- *
- * @author luan
- */
 public class Window extends JFrame{
     
     public Window(boolean dispose) {
@@ -44,6 +43,21 @@ public class Window extends JFrame{
         
         addWindowListener(windowListener);
     }
+    
+    public JComboBox addComboBox(JPanel painel, int x, int y, int width, int height) {
+        JComboBox combo = new JComboBox();
+        combo.setBounds(x, y, width, height);
+        painel.add(combo);
+        return combo;
+    }
+    
+    public JComboBox addComboBox(Vector vector, JPanel painel, int x, int y, int width, int height) {
+        JComboBox combo = new JComboBox(vector);
+        combo.setBounds(x, y, width, height);
+        painel.add(combo);
+        return combo;
+    }
+    
     
     public void addLabelTitulo(JPanel painel, String text, int x, int width, int FontSize) {
         JLabel label = new JLabel(text);
