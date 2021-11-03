@@ -10,31 +10,44 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-/**
- *
- * @author luan
- */
 public class PainelDeControle {
             
     public PainelDeControle(boolean isAdmin) {
         Window janela = new Window(false);
-        
+        janela.setSize(750, 450);
         JPanel painel = new JPanel();
         painel.setLayout(null);
         
         janela.addLabelTitulo(painel, "Painel de Controle", 200, 230, 20);
-        JButton btnNovoCliente = janela.addButton(painel, "Novo Cliente", 100,150, 200, 40);
-        JButton btnComprar = janela.addButton(painel, "Comprar Passagem", 320, 150, 200, 40);
-        JButton btnCadastrarViagem = janela.addButton(painel, "Cadastrar Viagem", 100, 210, 200, 40);
-        JButton btnCancelarCompra = janela.addButton(painel, "Cancelar Compra", 320, 210, 200, 40);
-        JButton btnNovoFuncionario = janela.addButton(painel, "Novo Funcionario", 100, 270, 200, 40);   
-        JButton btnNovoAviao = janela.addButton(painel, "Novo Aviao", 320, 270, 200, 40);
+        JButton btnNovoCliente = janela.addButton(painel, "Novo Cliente", 50, 150, 200, 40);
+        JButton btnComprar = janela.addButton(painel, "Comprar Passagem", 270, 150, 200, 40);
+        JButton btnCancelarCompra = janela.addButton(painel, "Cancelar Compra", 490, 150, 200, 40);
+        JButton btnNovoAviao = janela.addButton(painel, "Cadastrar Avião", 50, 210, 200, 40);
+        JButton btnCadastrarViagem = janela.addButton(painel, "Cadastrar VOO", 270, 210, 200, 40);
+        JButton btnPassagens = janela.addButton(painel, "Ver Passagens", 490, 210, 200, 40); 
         
-        btnNovoFuncionario.setEnabled(isAdmin);
+        JButton btnNovoFuncionario = janela.addButton(painel, "Novo Funcionario", 50, 390, 180, 30);
+        JButton btnFechar = janela.addButton(painel, "Fechar", 540, 390, 150, 30);
+        
+        btnNovoFuncionario.setVisible(isAdmin);
         
         
         janela.getContentPane().add(painel);
         janela.setVisible(true);
+        
+        btnComprar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ComprarPassagem(janela);
+            }
+        });
+        
+        btnFechar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
         
         btnCadastrarViagem.addActionListener(new ActionListener() {
             @Override
