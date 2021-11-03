@@ -5,7 +5,9 @@
  */
 package br.com.aerodev01.view;
 
+import br.com.aerodev01.dao.AviaoDao;
 import br.com.aerodev01.dao.FuncionarioDao;
+import br.com.aerodev01.dao.ViagemDao;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -16,10 +18,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-/**
- *
- * @author luan
- */
 public class AeroDev01 {
 
     /**
@@ -41,6 +39,11 @@ public class AeroDev01 {
         JButton btnLogin = janela.addButton(painel, "Entrar", 230, 280, 100, 30);
         
         janela.getContentPane().add(painel);
+        
+        //AviaoDao aviD =  new AviaoDao();
+        //System.out.println(aviD.pesquisaPorNome("A-003"));
+        //ViagemDao viagDao = new ViagemDao();
+        //System.out.println(viagDao.listaExistente("SC", "RS", "100.00", "2050-10-26", 1));
         
         btnLogin.addActionListener(new ActionListener() {
             @Override

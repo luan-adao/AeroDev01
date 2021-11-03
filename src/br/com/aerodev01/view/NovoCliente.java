@@ -18,10 +18,6 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-/**
- *
- * @author luan
- */
 public class NovoCliente {
     public NovoCliente(JFrame frame) {
         Window janela = new Window(true);

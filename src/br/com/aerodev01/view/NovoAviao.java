@@ -14,10 +14,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-/**
- *
- * @author luan.adao
- */
 public class NovoAviao {
     public NovoAviao(JFrame frame) {
         Window janela = new Window(true);

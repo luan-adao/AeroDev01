@@ -15,10 +15,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-/**
- *
- * @author luan
- */
 public class NovoFuncionario {
     public NovoFuncionario(JFrame frame) {
         Window janela = new Window(true);
