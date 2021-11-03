@@ -7,6 +7,8 @@ package br.com.aerodev01.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -28,6 +30,33 @@ public class ConnectionFactory {
         
         }
         
+    }
+    
+    public static void closeConnection(Connection con) {
+        try {
+            if (con != null) {
+                con.close();
+            }   
+        } catch (Exception e) {
+        }
+    }
+    public static void closeConnection(Connection con, PreparedStatement stmt){
+        try {
+            closeConnection(con);
+            if (stmt != null) {
+                stmt.close();
+            }   
+        } catch (Exception e) {
+        }
+    }
+    public static void closeConnection(Connection con, PreparedStatement stmt, ResultSet rs){
+        try {
+            closeConnection(con, stmt);
+            if (rs != null) {
+                rs.close();
+            }   
+        } catch (Exception e) {
+        }
     }
     
 }
