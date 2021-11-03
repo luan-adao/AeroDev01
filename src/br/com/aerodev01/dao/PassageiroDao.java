@@ -38,7 +38,9 @@ public class PassageiroDao implements Serializable{
             //passageiro.setCpf(rs.getString("pas_cpf"));
         } catch (SQLException e) {
             ErrorCheck.DuplicateEntry(e, "Pessoa já está cadastrada", "Erro: Esta pessoa já é cliente");
-            System.err.println("Ocorreu um erro ao salvarc " + e.getMessage());
+            System.err.println("Ocorreu um erro ao salvar " + e.getMessage());
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
         }
     }
 }
