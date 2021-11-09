@@ -120,8 +120,8 @@ public class ViagemDao {
         return lista;
     }
     
-    public Vector listaDestinoPorOrigem(String origem) throws SQLException {
-        Vector lista = new Vector();
+    public List listaDestinoPorOrigem(String origem) throws SQLException {
+        List lista = new ArrayList();
         try {
             con = ConnectionFactory.getConnection();
             String sql = "SELECT via_destino FROM Viagem where via_origem=?";
@@ -141,8 +141,8 @@ public class ViagemDao {
         }
         return lista;
     }
-    public Vector listaData(String origem, String destino) throws SQLException {
-        Vector lista = new Vector();
+    public List listaData(String origem, String destino) throws SQLException {
+        List lista = new ArrayList();
         try {
             con = ConnectionFactory.getConnection();
             String sql = "SELECT via_data FROM Viagem where via_origem=? and via_destino=?";
