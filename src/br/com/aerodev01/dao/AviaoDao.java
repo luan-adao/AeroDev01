@@ -86,4 +86,20 @@ public class AviaoDao implements Serializable {
         return idAviao;
     }
     
+    public String retornaNome(int id) {
+        String aviaoNome = "";
+        try {
+            con = ConnectionFactory.getConnection();
+            String sql = "SELECT avi_nome FROM Aviao where avi_id=?";
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                aviaoNome = rs.getString("avi_nome");
+            }
+        } catch (Exception e) {
+        }
+        return aviaoNome;
+    }
+    
 }
