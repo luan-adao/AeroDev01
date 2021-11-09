@@ -5,24 +5,26 @@
  */
 package br.com.aerodev01.view;
 
+import br.com.aerodev01.dao.AviaoDao;
 import br.com.aerodev01.dao.ViagemDao;
 import br.com.aerodev01.entity.Viagem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
  * @author luan
  */
 public class ComprarPassagem {
-    String preco = ""; 
-    String aviao = "";
+    JTextField tfieldPreco, tfieldAviao;
+    JComboBox comboData, comboDestino, comboOrigem;
     public ComprarPassagem(JFrame frame) {
         Window janela = new Window(true);
         JPanel painel = new JPanel();
@@ -32,15 +34,20 @@ public class ComprarPassagem {
         
         janela.addLabelTitulo(painel, "Comprar Passagem", 210, 250, 20);
         janela.addLabel(painel, "Origem", 50, 150, 100, 20);
-        JComboBox comboOrigem = janela.addComboBox(origens, painel, 50, 180, 150, 20);
+        comboOrigem = janela.addComboBox(origens, painel, 50, 180, 150, 20);
         janela.addLabel(painel, "Destino", 260, 150, 100, 20);
-        JComboBox comboDestino = janela.addComboBox(painel, 260, 180, 150, 20);
+        comboDestino = janela.addComboBox(painel, 260, 180, 150, 20);
         janela.addLabel(painel, "Data", 420, 150, 100, 20);
-        JComboBox comboData = janela.addComboBox(painel, 420, 180, 150, 20);
+         comboData = janela.addComboBox(painel, 420, 180, 150, 20);
         janela.addLabel(painel, "Assento:", 50, 220, 100, 20);
         JComboBox comboAssento = janela.addComboBox(painel, 50, 250, 150, 20);
-        janela.addLabel(painel, "Preço: " + this.preco, 260, 250, 150, 20);
-        janela.addLabel(painel, "Aviao: " + this.aviao, 420, 250, 150, 20);
+        janela.addLabel(painel, "Preço: ", 260, 250, 50, 20);
+        tfieldPreco = janela.addTextField(painel, false, 315, 250, 80, 20);
+        janela.addLabel(painel, "Aviao: ", 420, 250, 50, 20);
+        tfieldAviao = janela.addTextField(painel, false, 475, 250, 100, 20);
+        
+        tfieldAviao.setEditable(false);
+        tfieldPreco.setEditable(false);
         
         comboOrigem.setSelectedIndex(-1);
         comboDestino.setEnabled(false);
@@ -65,14 +72,24 @@ public class ComprarPassagem {
                 if (comboOrigem.isFocusOwner()) {
                     comboDestino.removeAllItems();
                     //ViagemDao viagemDao = new ViagemDao();
+
                     try {
+                        List destinosDisponiveis = viagemDao.listaDestinoPorOrigem(comboOrigem.getSelectedItem().toString());
                         System.out.println(viagemDao.listaDestinoPorOrigem(comboOrigem.getSelectedItem().toString()));
-                        for (Object destinos: viagemDao.listaDestinoPorOrigem(comboOrigem.getSelectedItem().toString())) {
+                        
+                        for (Object destinos: destinosDisponiveis) {
                             comboDestino.addItem(destinos);
                         }
+
                         comboDestino.setEnabled(true);
                         comboData.setEnabled(false);
-                        comboDestino.setSelectedIndex(-1);
+                        if (destinosDisponiveis.size() == 1) {
+                            comboDestino.setSelectedIndex(0);
+                        } else {
+                            comboDestino.setSelectedIndex(-1);
+                        }
+                        comboData.setSelectedIndex(-1);
+                        setPrecoAviao(true);
                     } catch (Exception er) {
                     }   
                 }
@@ -85,11 +102,18 @@ public class ComprarPassagem {
                 if (comboDestino.isFocusOwner()) {
                     comboData.removeAllItems();
                     try {
-                        for (Object datas: viagemDao.listaData(comboOrigem.getSelectedItem().toString(), comboDestino.getSelectedItem().toString())) {
+                        List datasDisponiveis = viagemDao.listaData(comboOrigem.getSelectedItem().toString(), comboDestino.getSelectedItem().toString());
+                        for (Object datas: datasDisponiveis) {
                             comboData.addItem(datas);
                         }
                         comboData.setEnabled(true);
-                        comboData.setSelectedIndex(-1);
+                        if (datasDisponiveis.size() == 1) {
+                            comboData.setSelectedIndex(0);
+                            setPrecoAviao(false);
+                        } else {
+                            comboData.setSelectedIndex(-1);
+                            setPrecoAviao(true);
+                        }
                         System.out.println("comboDestino action");
                     } catch (Exception er) {
                     }   
@@ -104,14 +128,7 @@ public class ComprarPassagem {
                 if (comboData.isFocusOwner()) {
                     System.out.println("Fous Owner");
                     System.out.println("Ação no combo Data");
-                    int idAviao = viagemDao.retornaAviaoId(comboOrigem.getSelectedItem().toString(),
-                        comboDestino.getSelectedItem().toString(),
-                        comboData.getSelectedItem().toString());
-                    preco = viagemDao.retornaPreco(comboOrigem.getSelectedItem().toString(),
-                        comboDestino.getSelectedItem().toString(),
-                        comboData.getSelectedItem().toString(),
-                        idAviao);
-                    System.out.println(preco);
+                    setPrecoAviao(false);
                 }
             }
         });
@@ -119,5 +136,28 @@ public class ComprarPassagem {
         janela.getContentPane().add(painel);
         janela.setVisible(true);
         janela.setVisibleWindowListener(frame);
+    }
+    
+    private void setPrecoAviao(boolean zero) {
+        try {
+            if (zero) {
+                tfieldPreco.setText("");
+                tfieldAviao.setText("");
+            } else {
+            ViagemDao viagemDao = new ViagemDao();
+            AviaoDao aviaoDao = new AviaoDao();
+            int idAviao = viagemDao.retornaAviaoId(comboOrigem.getSelectedItem().toString(),
+                    comboDestino.getSelectedItem().toString(),
+                    comboData.getSelectedItem().toString());
+            String preco = viagemDao.retornaPreco(comboOrigem.getSelectedItem().toString(),
+                    comboDestino.getSelectedItem().toString(),
+                    comboData.getSelectedItem().toString(),
+                    idAviao);
+            System.out.println(preco);
+            tfieldPreco.setText(preco);  
+            tfieldAviao.setText(aviaoDao.retornaNome(idAviao));
+            }
+        } catch (Exception e) {
+        }
     }
 }
