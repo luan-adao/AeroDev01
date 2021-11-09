@@ -113,13 +113,15 @@ values
 
 create table Cancelamento(
     id int primary key auto_increment,
-    PassagemID int not null unique,
-    foreign key (PassagemID) references Passagem(psgm_id)
+    can_passagemID int not null unique,
+    foreign key (can_passagemID) references Passagem(psgm_id)
 );
 
 CREATE TABLE AssentoOcupado(
 	aso_id int PRIMARY KEY auto_increment,
-	aso_passagemAssento int not null
+	aso_viagemID int not null,
+	aso_assentoNumero int not null,
+	foreign key (aso_viagemID) references Viagem(via_id)
 );
 
 /*
