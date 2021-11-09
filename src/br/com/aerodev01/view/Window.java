@@ -6,6 +6,8 @@
 package br.com.aerodev01.view;
 
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -20,10 +22,18 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class Window extends JFrame{
-    
     public Window(boolean dispose) {
         if (dispose) {
             super.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            JButton btnFechar = new JButton("Fechar");
+            btnFechar.setBounds(50, 390, 100, 30);
+            super.add(btnFechar);
+            btnFechar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
         } else {
             super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         }
@@ -36,7 +46,7 @@ public class Window extends JFrame{
     public void setVisibleWindowListener(JFrame frame) {
         frame.setVisible(false);
         WindowListener windowListener = new WindowAdapter() {
-            public void windowClosing(WindowEvent evt) {
+            public void windowClosed(WindowEvent evt) {
                 frame.setVisible(true);
             }
         };
@@ -70,6 +80,12 @@ public class Window extends JFrame{
         JLabel label = new JLabel(text);
         label.setBounds(x, y, width, height);
         painel.add(label);
+    }
+    public JLabel addLabelWithReturn(JPanel painel, String text, int x, int y, int width, int height) {
+        JLabel label = new JLabel(text);
+        label.setBounds(x, y, width, height);
+        painel.add(label);
+        return label;
     }
     
     public JTextField addTextField(JPanel painel, boolean password, int x, int y, int width, int height) {
