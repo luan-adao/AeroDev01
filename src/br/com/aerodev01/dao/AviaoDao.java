@@ -25,6 +25,25 @@ public class AviaoDao implements Serializable {
     protected PreparedStatement stmt;
     protected ResultSet rs;
     
+    public int retornaNumeroDeAssento(int id) {
+        int assentos = 0;
+        try {
+            con = ConnectionFactory.getConnection();
+            String sql = "SELECT avi_assentos from Aviao where avi_id=?";
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, id);
+            stmt.executeQuery();
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                assentos = rs.getInt("avi_assentos");
+            }
+        } catch (Exception e) {
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        return assentos;
+    }
+    
     public void create(Aviao aviao) throws SQLException {
         try {
             con = ConnectionFactory.getConnection();
