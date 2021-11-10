@@ -19,7 +19,7 @@ import java.util.Vector;
  *
  * @author luan
  */
-public class ViagemDao {
+public class ViagemDao extends AviaoDao{
     Connection con;
     PreparedStatement stmt;
     ResultSet rs;
