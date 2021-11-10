@@ -25,7 +25,6 @@ public class PainelDeControle {
         JButton btnNovoAviao = janela.addButton(painel, "Cadastrar Avião", 50, 210, 200, 40);
         JButton btnCadastrarViagem = janela.addButton(painel, "Cadastrar VOO", 270, 210, 200, 40);
         JButton btnPassagens = janela.addButton(painel, "Ver Passagens", 490, 210, 200, 40); 
-        
         JButton btnNovoFuncionario = janela.addButton(painel, "Novo Funcionario", 50, 390, 180, 30);
         JButton btnFechar = janela.addButton(painel, "Fechar", 540, 390, 150, 30);
         
