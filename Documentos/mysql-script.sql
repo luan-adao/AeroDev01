@@ -118,10 +118,8 @@ create table Cancelamento(
 );
 
 CREATE TABLE AssentoOcupado(
-	aso_id int PRIMARY KEY auto_increment,
 	aso_viagemID int not null,
-	aso_assentoNumero int not null,
-	foreign key (aso_viagemID) references Viagem(via_id)
+	aso_assentoNumero int not null
 );
 
 /*
