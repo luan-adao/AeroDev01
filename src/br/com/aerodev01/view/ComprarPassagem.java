@@ -5,8 +5,10 @@
  */
 package br.com.aerodev01.view;
 
+import br.com.aerodev01.dao.AssentoOcupadoDao;
 import br.com.aerodev01.dao.AviaoDao;
 import br.com.aerodev01.dao.ViagemDao;
+import br.com.aerodev01.entity.AssentoOcupado;
 import br.com.aerodev01.entity.Viagem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +18,7 @@ import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -48,6 +51,8 @@ public class ComprarPassagem {
         tfieldPreco = janela.addTextField(painel, false, 315, 250, 80, 20);
         janela.addLabel(painel, "Aviao: ", 420, 250, 50, 20);
         tfieldAviao = janela.addTextField(painel, false, 475, 250, 100, 20);
+        
+        JButton btnComprar = janela.addButton(painel, "Comprar", 420, 290, 100, 30);
         
         tfieldAviao.setEditable(false);
         tfieldPreco.setEditable(false);
@@ -115,6 +120,30 @@ public class ComprarPassagem {
             }
         });
         
+        btnComprar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (comboOrigem.getSelectedIndex() !=-1 && comboDestino.getSelectedIndex() !=-1
+                        && comboData.getSelectedIndex() !=-1 && comboAssento.getSelectedIndex() !=-1) {
+                    AssentoOcupadoDao asoDao = new AssentoOcupadoDao();
+                    ViagemDao viagemDao = new ViagemDao();
+                    try {
+                        AssentoOcupado aso = new AssentoOcupado();
+                        int aviaoId = viagemDao.pesquisaPorNome(tfieldAviao.getText());
+                        int viagemId = viagemDao.retornaID(comboOrigem.getSelectedItem().toString(),
+                                comboDestino.getSelectedItem().toString(), comboData.getSelectedItem().toString(), aviaoId);
+                        aso.setIdViagem(viagemId);
+                        aso.setNumeroAssento(Integer.parseInt(comboAssento.getSelectedItem().toString()));
+                        asoDao.create(aso);
+                    } catch (Exception er){
+                        
+                    } finally {
+                        setAssentos();
+                    }
+                }
+            }
+        });
+        
         janela.getContentPane().add(painel);
         janela.setVisible(true);
         janela.setVisibleWindowListener(frame);
@@ -149,9 +178,23 @@ public class ComprarPassagem {
         ViagemDao viagemDao = new ViagemDao();
         int aviaoId = viagemDao.pesquisaPorNome(tfieldAviao.getText());
         int numeroAssentos = viagemDao.retornaNumeroDeAssento(aviaoId);
+        int viagemId = viagemDao.retornaID(comboOrigem.getSelectedItem().toString(),
+                comboDestino.getSelectedItem().toString(), comboData.getSelectedItem().toString(), aviaoId);
+        AssentoOcupadoDao asoDao =  new AssentoOcupadoDao();
+        List assentosOcupados = asoDao.retornaAssentos(viagemId);
+        List assentosDisponiveis = new ArrayList();
         for (int i = 1; i <= numeroAssentos; i++) {
-            comboAssento.addItem(i);   
+            //comboAssento.addItem(i);
+            if (assentosOcupados.contains(i)) {
+                continue;
+            } else {
+                assentosDisponiveis.add(i);
+            }
         }
+       assentosDisponiveis.forEach(assentos -> {
+           comboAssento.addItem(assentos);
+       });
+        System.out.println(assentosDisponiveis);
         
     }
     
