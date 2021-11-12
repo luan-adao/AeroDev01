@@ -10,7 +10,21 @@ package br.com.aerodev01.entity;
  * @author luan
  */
 public class AssentoOcupado {
-     private int idViagem, numeroAssento;
+     private int id, idViagem, numeroAssento;
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
 
     /**
      * @return the idViagem
@@ -39,5 +53,4 @@ public class AssentoOcupado {
     public void setNumeroAssento(int numeroAssento) {
         this.numeroAssento = numeroAssento;
     }
-     
 }
