@@ -87,7 +87,7 @@ values
 
 
 create table Passagem(
-	psgm_id int primary key auto_increment,
+    psgm_id int primary key auto_increment,
     psgm_numeroAssento varchar(4) not null,
     psgm_passageiroID varchar(15),
     foreign key (psgm_passageiroID) references Passageiro(pas_cpf),
@@ -112,12 +112,13 @@ values
 ('0008', '923.545.892-45', '043.234.212-45', 4);
 
 create table Cancelamento(
-    id int primary key auto_increment,
+    can_id int primary key auto_increment,
     can_passagemID int not null unique,
     foreign key (can_passagemID) references Passagem(psgm_id)
 );
 
 CREATE TABLE AssentoOcupado(
+    aso_id int primary key auto_increment,
 	aso_viagemID int not null,
 	aso_assentoNumero int not null
 );
