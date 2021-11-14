@@ -47,6 +47,23 @@ public class FuncionarioDao implements Serializable{
         }
     }
     
+    public String RetornaNome(String cpf) {
+        String nome = "";
+        try {
+            con = ConnectionFactory.getConnection();
+            String sql = "SELECT fun_nome from Funcionario where fun_cpf=?";
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, cpf);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                nome = rs.getString("fun_nome");
+            }
+        } catch (Exception e) {
+            System.err.println("Erro ao retornar nome de funcionário " + e.getMessage());
+        }
+        return nome;
+    }
+    
     public List<Funcionario> Read() throws SQLException {
         ArrayList<Funcionario> lista = new ArrayList<>();
         try {
