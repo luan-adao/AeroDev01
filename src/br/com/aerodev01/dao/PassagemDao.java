@@ -5,6 +5,7 @@
  */
 package br.com.aerodev01.dao;
 
+import br.com.aerodev01.entity.AssentoOcupado;
 import br.com.aerodev01.entity.Aviao;
 import br.com.aerodev01.entity.Passagem;
 import java.sql.Connection;
@@ -23,9 +24,9 @@ public class PassagemDao {
         try {
             con = ConnectionFactory.getConnection();
             String sql = "INSERT INTO Passagem(psgm_numeroAssento, psgm_passageiroID, psgm_funcionarioID, psgm_viagemID)"
-                    + "VALUES (?, ?, ?, ?)";
+                    + " VALUES (?, ?, ?, ?)";
             stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, passagem.getNumeroAsseno());
+            stmt.setString(1, passagem.getNumeroAssento());
             stmt.setString(2, passagem.getIdPassageiro());
             stmt.setString(3, passagem.getIdFuncionario());
             stmt.setInt(4, passagem.getIdViagem());
@@ -33,6 +34,12 @@ public class PassagemDao {
             rs = stmt.getGeneratedKeys();
             rs.next();
             passagem.setId(rs.getInt(1));
+            
+            AssentoOcupadoDao asoDao = new AssentoOcupadoDao();
+            AssentoOcupado aso = new AssentoOcupado();
+            aso.setIdViagem(passagem.getIdViagem());
+            aso.setNumeroAssento(Integer.parseInt(passagem.getNumeroAssento()));
+            asoDao.create(aso);
             
         } catch (Exception e) {
             System.err.println("Ocorreu um erro ao salvar " + e.getMessage());
@@ -51,7 +58,7 @@ public class PassagemDao {
             while(rs.next()) {
                 Passagem passagem = new Passagem();
                 passagem.setId(rs.getInt("psgm_id"));
-                passagem.setNumeroAsseno(rs.getString("psgm_numeroAssento"));
+                passagem.setNumeroAssento(rs.getString("psgm_numeroAssento"));
                 passagem.setIdPassageiro(rs.getString("psgm_passageiroID"));
                 passagem.setIdFuncionario(rs.getString("psgm_funcionarioID"));
                 passagem.setIdViagem(rs.getInt("psgm_viagemID"));
@@ -87,5 +94,94 @@ public class PassagemDao {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
         return lista;
+    }
+    
+    public List getInfos(int idViagem, int idPassagem) {
+        List lista = new ArrayList();
+        try {
+            con = ConnectionFactory.getConnection();
+            String qsl = "SELECT via_origem, via_destino, via_data, psgm_numeroAssento FROM Passagem AS pas"
+                    + " INNER JOIN Viagem AS via ON pas.psgm_viagemID=via.via_id"
+                    + " WHERE psgm_viagemID=? AND psgm_id=?";
+            stmt = con.prepareStatement(qsl);
+            stmt.setInt(1, idViagem);
+            stmt.setInt(2, idPassagem);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                lista.add(rs.getString("via_origem"));
+                lista.add(rs.getString("via_destino"));
+                lista.add(rs.getString("via_data"));
+                lista.add(rs.getString("psgm_numeroAssento"));
+            }
+        } catch (Exception e) {
+            System.err.println("Erro ao obter Origem e Destino " + e.getMessage());
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        return lista;
+    }
+    
+    public String getPassageiroNome(String cpf) {
+        String nome = "";
+        try {
+            con = ConnectionFactory.getConnection();
+            String sql = "SELECT pas_nome from Passagem as pas"
+                    + " INNER JOIN Passageiro as psg on pas.psgm_passageiroID=psg.pas_cpf"
+                    + " WHERE psg.pas_cpf=?";
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, cpf);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                nome = rs.getString("pas_nome");
+            }
+        } catch (Exception e) {
+            System.err.println("Erro ao obter nome do passageiro " + e.getMessage());
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        return nome;
+    }
+    
+    public String getFuncionarioNome(String cpf) {
+        String nome = "";
+        try {
+            con = ConnectionFactory.getConnection();
+            String sql = "SELECT fun_nome from Passagem as pas"
+                    + " INNER JOIN Funcionario as fun on pas.psgm_funcionarioID=fun.fun_cpf"
+                    + " WHERE fun.fun_cpf=?";
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, cpf);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                nome = rs.getString("fun_nome");
+            }
+        } catch (Exception e) {
+            System.err.println("Erro ao obter nome do funcionario " + e.getMessage());
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        return nome;
+    }
+    
+    public String getAviaoNome(int id) {
+        String nome = "";
+        try {
+            con = ConnectionFactory.getConnection();
+            String sql = "SELECT avi_nome from Passagem as pas"
+                    + " INNER JOIN Viagem as via on pas.psgm_viagemID=via.via_id"
+                    + " INNER JOIN Aviao as avi on via.via_aviaoID=avi.avi_id"
+                    + " WHERE pas.psgm_viagemID=?";
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                nome = rs.getString("avi_nome");
+            }
+        } catch (Exception e) {
+            System.err.println("Erro ao obter nome do Avião " + e.getMessage());
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        return nome;
     }
 }
