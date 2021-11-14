@@ -43,4 +43,24 @@ public class PassageiroDao implements Serializable{
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
     }
+    
+    public boolean ChecarCpf(String cpf) {
+        boolean existe = false;
+        try {
+            con = ConnectionFactory.getConnection();
+            String sql = "SELECT pas_cpf FROM Passageiro where pas_cpf=?";
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, cpf);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                existe = true;
+            }
+            
+        } catch (Exception e) {
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        return existe;
+    }
+    
 }
