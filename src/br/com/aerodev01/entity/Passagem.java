@@ -8,7 +8,7 @@ package br.com.aerodev01.entity;
 
 public class Passagem {
     private int id, idViagem;
-    private String numeroAsseno, idPassageiro, idFuncionario;
+    private String numeroAssento, idPassageiro, idFuncionario;
 
     /**
      * @return the id
@@ -39,17 +39,17 @@ public class Passagem {
     }
 
     /**
-     * @return the numeroAsseno
+     * @return the numeroAssento
      */
-    public String getNumeroAsseno() {
-        return numeroAsseno;
+    public String getNumeroAssento() {
+        return numeroAssento;
     }
 
     /**
-     * @param numeroAsseno the numeroAsseno to set
+     * @param numeroAsseno the numeroAssento to set
      */
-    public void setNumeroAsseno(String numeroAsseno) {
-        this.numeroAsseno = numeroAsseno;
+    public void setNumeroAssento(String numeroAssento) {
+        this.numeroAssento = numeroAssento;
     }
 
     /**
