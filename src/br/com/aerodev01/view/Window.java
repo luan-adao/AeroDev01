@@ -24,10 +24,10 @@ public class Window extends JFrame{
     public Window(boolean dispose) {
         if (dispose) {
             super.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            JButton btnFechar = new JButton("Fechar");
-            btnFechar.setBounds(50, 390, 100, 30);
-            super.add(btnFechar);
-            btnFechar.addActionListener(new ActionListener() {
+            JButton btnVoltar = new JButton("Voltar");
+            btnVoltar.setBounds(10, 10, 100, 30);
+            super.add(btnVoltar);
+            btnVoltar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
@@ -59,14 +59,6 @@ public class Window extends JFrame{
         painel.add(combo);
         return combo;
     }
-    
-    public JComboBox addComboBox(Vector vector, JPanel painel, int x, int y, int width, int height) {
-        JComboBox combo = new JComboBox(vector);
-        combo.setBounds(x, y, width, height);
-        painel.add(combo);
-        return combo;
-    }
-    
     
     public void addLabelTitulo(JPanel painel, String text, int x, int width, int FontSize) {
         JLabel label = new JLabel(text);
