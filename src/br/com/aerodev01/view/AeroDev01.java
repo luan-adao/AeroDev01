@@ -8,6 +8,7 @@ package br.com.aerodev01.view;
 import br.com.aerodev01.dao.AviaoDao;
 import br.com.aerodev01.dao.FuncionarioDao;
 import br.com.aerodev01.dao.ViagemDao;
+import br.com.aerodev01.entity.Funcionario;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -54,10 +55,12 @@ public class AeroDev01 {
                         boolean logar = funDao.Login(tfLoginName.getText(), tfLoginPassword.getText());
                         System.out.print(logar);
                         if (logar){
+                            Funcionario funcionario = new Funcionario();
+                            funcionario.setCpf(tfLoginName.getText());
                             if (funDao.isAdmin) {
-                                new PainelDeControle(true);   
+                                new PainelDeControle(funcionario,true);   
                             } else {
-                                new PainelDeControle(false);
+                                new PainelDeControle(funcionario, false);
                             }
                             janela.dispose();
                         } else {
