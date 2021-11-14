@@ -5,6 +5,7 @@
  */
 package br.com.aerodev01.view;
 
+import br.com.aerodev01.entity.Funcionario;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -12,13 +13,16 @@ import javax.swing.JPanel;
 
 public class PainelDeControle {
             
-    public PainelDeControle(boolean isAdmin) {
+    public PainelDeControle(Funcionario funcionario, boolean isAdmin) {
         Window janela = new Window(false);
         janela.setSize(750, 450);
         JPanel painel = new JPanel();
         painel.setLayout(null);
         
         janela.addLabelTitulo(painel, "Painel de Controle", 200, 230, 20);
+        if (funcionario != null) {
+            janela.addLabel(painel, funcionario.getCpf(), 5, 5, 150, 20);
+        }
         JButton btnNovoCliente = janela.addButton(painel, "Novo Cliente", 50, 150, 200, 40);
         JButton btnComprar = janela.addButton(painel, "Comprar Passagem", 270, 150, 200, 40);
         JButton btnCancelarCompra = janela.addButton(painel, "Cancelar Compra", 490, 150, 200, 40);
@@ -37,7 +41,7 @@ public class PainelDeControle {
         btnComprar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ComprarPassagem(janela);
+                new ComprarPassagem(funcionario, janela);
             }
         });
         
@@ -80,6 +84,6 @@ public class PainelDeControle {
         
     }
     public static void main(String[] args) {
-        new PainelDeControle(false);
+        new PainelDeControle(null, false);
     }
 }
