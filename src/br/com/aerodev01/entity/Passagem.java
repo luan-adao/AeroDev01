@@ -7,7 +7,7 @@ package br.com.aerodev01.entity;
 
 
 public class Passagem {
-    private int id, idViagem;
+    private int id, idViagem, cancelada;
     private String numeroAssento, idPassageiro, idFuncionario;
 
     /**
@@ -22,6 +22,19 @@ public class Passagem {
      */
     public void setId(int id) {
         this.id = id;
+    }
+    /**
+     * @return the cancelada
+     */
+    public int getCancelada() {
+        return cancelada;
+    }
+
+    /**
+     * @param can the cancelada to set
+     */
+    public void setCancelada(int can) {
+        this.cancelada = can;
     }
 
     /**
@@ -46,7 +59,7 @@ public class Passagem {
     }
 
     /**
-     * @param numeroAsseno the numeroAssento to set
+     * @param numeroAssento the numeroAssento to set
      */
     public void setNumeroAssento(String numeroAssento) {
         this.numeroAssento = numeroAssento;

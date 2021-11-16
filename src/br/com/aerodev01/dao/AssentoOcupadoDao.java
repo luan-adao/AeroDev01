@@ -42,6 +42,21 @@ public class AssentoOcupadoDao implements Serializable{
         }
     }
     
+    public void Delete(AssentoOcupado aso) {
+        try {
+            con = ConnectionFactory.getConnection();
+            String sql = "DELETE FROM AssentoOcupado WHERE aso_viagemID=? AND aso_assentoNumero=?";
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, aso.getIdViagem());
+            stmt.setInt(2, aso.getNumeroAssento());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Ocorreu um erro ao deletar de AssentoOcupado " + e.getMessage());
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+    }
+    
     public List retornaAssentos(int idViagem) {
         List lista = new ArrayList();
         try {

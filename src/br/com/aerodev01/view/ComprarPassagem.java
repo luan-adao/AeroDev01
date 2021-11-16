@@ -80,18 +80,23 @@ public class ComprarPassagem {
             public void actionPerformed(ActionEvent e) {
                 try {
                     PassageiroDao passDao = new PassageiroDao();
-                    if (passDao.ChecarCpf(tfieldCpf.getText())) {
-                        tfieldCpf.setForeground(Color.green);
-                        cpfIsValid = true;
-                        if (canBuy()) {
-                            btnComprar.setEnabled(true);
+                    if (!tfieldCpf.getText().isEmpty()) {
+                        if (passDao.ChecarCpf(tfieldCpf.getText())) {
+                            tfieldCpf.setForeground(Color.green);
+                            cpfIsValid = true;
+                            if (canBuy()) {
+                                btnComprar.setEnabled(true);
+                            } else {
+                                btnComprar.setEnabled(false);
+                            }
                         } else {
+                            tfieldCpf.setForeground(Color.red);
                             btnComprar.setEnabled(false);
+                            cpfIsValid = false;
                         }
                     } else {
-                        tfieldCpf.setForeground(Color.red);
-                        btnComprar.setEnabled(false);
                         cpfIsValid = false;
+                        btnComprar.setEnabled(false);
                     }
                 } catch (Exception er) {
                 }
@@ -128,8 +133,7 @@ public class ComprarPassagem {
         btnComprar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!tfieldCpf.getText().isEmpty() && comboOrigem.getSelectedIndex() != -1 && comboDestino.getSelectedIndex() != -1
-                        && comboData.getSelectedIndex() != -1 && comboAssento.getSelectedIndex() != -1) {
+                if (canBuy()) {
                     Passagem passagem = new Passagem();
                     try {
                         ViagemDao viagemDao = new ViagemDao();
@@ -150,7 +154,7 @@ public class ComprarPassagem {
                         System.out.println("Erro ao Comprar passagem " + er.getMessage());
                     } finally {
                         setAssentos();
-                        Ticket myTicket = new Ticket(janela, passagem);
+                        Ticket myTicket = new Ticket(janela, passagem, ComprarPassagem.this);
                     }
                 }
             }
@@ -160,10 +164,28 @@ public class ComprarPassagem {
         janela.setVisible(true);
         janela.setVisibleWindowListener(frame);
     }
-    
+
+    public void resetAllFields() {
+        comboAssento.removeAllItems();
+        comboAssento.setSelectedIndex(-1);
+        comboAssento.setEnabled(false);
+        tfieldAviao.setText("");
+        tfieldPreco.setText("");
+        comboData.removeAllItems();
+        comboData.setSelectedIndex(-1);
+        comboData.setEnabled(false);
+        comboDestino.removeAllItems();
+        comboDestino.setSelectedIndex(-1);
+        comboDestino.setEnabled(false);
+        comboOrigem.setSelectedIndex(-1);
+        btnComprar.setEnabled(false);
+        tfieldCpf.setText("");
+        cpfIsValid = false;
+    }
+
     private boolean canBuy() {
         if (!tfieldCpf.getText().isEmpty() && comboOrigem.getSelectedIndex() != -1 && comboDestino.getSelectedIndex() != -1
-                        && comboData.getSelectedIndex() != -1 && comboAssento.getSelectedIndex() != -1) {
+                && comboData.getSelectedIndex() != -1 && comboAssento.getSelectedIndex() != -1) {
             return true;
         } else {
             return false;

@@ -38,6 +38,15 @@ public class PainelDeControle {
         janela.getContentPane().add(painel);
         janela.setVisible(true);
         
+        
+        
+        btnCancelarCompra.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Cancelamento(janela);
+            }
+        });
+        
         btnComprar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

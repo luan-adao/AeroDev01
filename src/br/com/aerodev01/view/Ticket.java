@@ -8,6 +8,9 @@ package br.com.aerodev01.view;
 import br.com.aerodev01.dao.PassagemDao;
 import br.com.aerodev01.entity.Passagem;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,7 +21,7 @@ import javax.swing.JPanel;
  * @author luan
  */
 public class Ticket {
-    public Ticket(JFrame frame, Passagem passagem) {
+    public Ticket(JFrame frame, Passagem passagem, ComprarPassagem comprar) {
         System.out.println(passagem.getId());
         JDialog janela = new JDialog(frame, "Ticket");
         janela.setLocationRelativeTo(frame);
@@ -45,17 +48,28 @@ public class Ticket {
         labelData = new JLabel("Data:");
         labelAssento = new JLabel("Assento:");
         labelNomeDoFuncionario = new JLabel("Nome do Funcionário:");
+        JButton btnOk = new JButton("OK");
+        
+        btnOk.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                janela.dispose();
+                comprar.resetAllFields();
+            }
+        });
         
         PassagemDao pasDao = new PassagemDao();
         
         labelNomePassageiroInfo = new JLabel(pasDao.getPassageiroNome(passagem.getIdPassageiro()));
-        labelAviaoInfo = new JLabel(pasDao.getAviaoNome(passagem.getIdViagem()));
+        labelAviaoInfo = new JLabel(pasDao.getAviaoNome(passagem.getId()));
         labelCodigoPassagemInfo = new JLabel(String.valueOf(passagem.getId()));
-        labelOrigemInfo = new JLabel(pasDao.getInfos(passagem.getIdViagem(), passagem.getId()).get(0).toString());
-        labelDestinoInfo = new JLabel(pasDao.getInfos(passagem.getIdViagem(), passagem.getId()).get(1).toString());
-        labelDataInfo = new JLabel(pasDao.getInfos(passagem.getIdViagem(), passagem.getId()).get(2).toString());
-        labelAssentoInfo = new JLabel(pasDao.getInfos(passagem.getIdViagem(), passagem.getId()).get(3).toString());
+        labelOrigemInfo = new JLabel(pasDao.getInfos(passagem.getId()).get(0).toString());
+        labelDestinoInfo = new JLabel(pasDao.getInfos(passagem.getId()).get(1).toString());
+        labelDataInfo = new JLabel(pasDao.getInfos(passagem.getId()).get(2).toString());
+        labelAssentoInfo = new JLabel(pasDao.getInfos(passagem.getId()).get(3).toString());
         labelNomeDoFuncionarioInfo = new JLabel(pasDao.getFuncionarioNome(passagem.getIdFuncionario()));
+        
+        System.out.println(pasDao.getInfos(passagem.getId()).get(4));
         
         labelNomePassageiro.setBounds(10, 10, 200, 20);
         labelAviao.setBounds(215, 10, 100, 20);
@@ -65,6 +79,7 @@ public class Ticket {
         labelData.setBounds(215, 80, 100, 20);
         labelAssento.setBounds(320, 80, 100, 20);
         labelNomeDoFuncionario.setBounds(10, 180, 200, 20);
+        btnOk.setBounds(380, 200, 70, 30);
         
         labelNomePassageiroInfo.setBounds(10, 35, 200, 20);
         labelAviaoInfo.setBounds(215, 35, 100, 20);
@@ -92,6 +107,7 @@ public class Ticket {
         painel.add(labelDataInfo);
         painel.add(labelAssentoInfo);
         painel.add(labelNomeDoFuncionarioInfo);
+        painel.add(btnOk);
         
         janela.getContentPane().add(painel);
         
