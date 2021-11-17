@@ -25,7 +25,7 @@ public class NovaViagem {
         Window janela = new Window(true);
         JPanel painel = new JPanel();
         painel.setLayout(null);
-        janela.addLabelTitulo(painel, "Cadastro de viagem", 230, 200, 20);
+        janela.addLabelTitulo(painel, "Cadastro de VOO", 230, 200, 20);
         janela.addLabel(painel, "Origem", 50, 150, 100, 20);
         JTextField tfieldOrigem = janela.addTextField(painel, false, 50, 180, 200, 20);
         janela.addLabel(painel, "Destino", 340, 150, 100, 20);

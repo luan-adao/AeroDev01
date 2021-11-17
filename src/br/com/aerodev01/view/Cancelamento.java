@@ -74,9 +74,9 @@ public class Cancelamento {
                 AssentoOcupado aso = new AssentoOcupado();
                 Integer viagemId = pasDao.getViagemId(cod);
                 aso.setIdViagem(viagemId);
-                Integer numeroAssento = Integer.parseInt(pasDao.getInfos(cod).get(3).toString());
+                Integer numeroAssento = Integer.parseInt(pasDao.getInfos(cod, 0).get(3).toString());
                 aso.setNumeroAssento(numeroAssento);
-                cancelarDao.create(cancelar, aso);
+                cancelarDao.create(cancelar, aso, cod);
                 resetInfos();
                 checked = false;
                 changeButtonStatus();
@@ -90,13 +90,13 @@ public class Cancelamento {
                 PassagemDao pasDao = new PassagemDao();
                 System.out.println(cod);
                 if (!tfieldCodigo.getText().isEmpty() && pasDao.checkExists(cod)) {
-                    String cpf = pasDao.getInfos(cod).get(4).toString();
-                    labelNome.setText(pasDao.getPassageiroNome(cpf));
+                    String cpf = pasDao.getInfos(cod, 0).get(4).toString();
+                    labelNome.setText(pasDao.getPassageiroNome(cpf, 0));
                     labelCpf.setText(cpf);
-                    labelOrigem.setText(pasDao.getInfos(cod).get(0).toString());
-                    labelDestino.setText(pasDao.getInfos(cod).get(1).toString());
-                    labelData.setText(pasDao.getInfos(cod).get(2).toString());
-                    labelPreco.setText(pasDao.getInfos(cod).get(5).toString());
+                    labelOrigem.setText(pasDao.getInfos(cod, 0).get(0).toString());
+                    labelDestino.setText(pasDao.getInfos(cod, 0).get(1).toString());
+                    labelData.setText(pasDao.getInfos(cod, 0).get(2).toString());
+                    labelPreco.setText(pasDao.getInfos(cod, 0).get(5).toString());
                     checked = true;
                     changeButtonStatus();
                 } else {
@@ -108,6 +108,7 @@ public class Cancelamento {
         
         janela.getContentPane().add(painel);
         janela.setVisible(true);
+        janela.setVisibleWindowListener(frame);
     }
     
     private void resetInfos() {

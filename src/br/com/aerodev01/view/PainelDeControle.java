@@ -19,7 +19,7 @@ public class PainelDeControle {
         JPanel painel = new JPanel();
         painel.setLayout(null);
         
-        janela.addLabelTitulo(painel, "Painel de Controle", 200, 230, 20);
+        janela.addLabelTitulo(painel, "Painel de Controle", 250, 230, 20);
         if (funcionario != null) {
             janela.addLabel(painel, funcionario.getCpf(), 5, 5, 150, 20);
         }
@@ -39,6 +39,13 @@ public class PainelDeControle {
         janela.setVisible(true);
         
         
+        
+        btnPassagens.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Passagens(janela);
+            }
+        });
         
         btnCancelarCompra.addActionListener(new ActionListener() {
             @Override

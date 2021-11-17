@@ -60,16 +60,16 @@ public class Ticket {
         
         PassagemDao pasDao = new PassagemDao();
         
-        labelNomePassageiroInfo = new JLabel(pasDao.getPassageiroNome(passagem.getIdPassageiro()));
+        labelNomePassageiroInfo = new JLabel(pasDao.getPassageiroNome(passagem.getIdPassageiro(), 0));
         labelAviaoInfo = new JLabel(pasDao.getAviaoNome(passagem.getId()));
         labelCodigoPassagemInfo = new JLabel(String.valueOf(passagem.getId()));
-        labelOrigemInfo = new JLabel(pasDao.getInfos(passagem.getId()).get(0).toString());
-        labelDestinoInfo = new JLabel(pasDao.getInfos(passagem.getId()).get(1).toString());
-        labelDataInfo = new JLabel(pasDao.getInfos(passagem.getId()).get(2).toString());
-        labelAssentoInfo = new JLabel(pasDao.getInfos(passagem.getId()).get(3).toString());
+        labelOrigemInfo = new JLabel(pasDao.getInfos(passagem.getId(), 0).get(0).toString());
+        labelDestinoInfo = new JLabel(pasDao.getInfos(passagem.getId(), 0).get(1).toString());
+        labelDataInfo = new JLabel(pasDao.getInfos(passagem.getId(), 0).get(2).toString());
+        labelAssentoInfo = new JLabel(pasDao.getInfos(passagem.getId(), 0).get(3).toString());
         labelNomeDoFuncionarioInfo = new JLabel(pasDao.getFuncionarioNome(passagem.getIdFuncionario()));
         
-        System.out.println(pasDao.getInfos(passagem.getId()).get(4));
+        System.out.println(pasDao.getInfos(passagem.getId(), 0).get(4));
         
         labelNomePassageiro.setBounds(10, 10, 200, 20);
         labelAviao.setBounds(215, 10, 100, 20);

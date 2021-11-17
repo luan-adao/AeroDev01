@@ -49,31 +49,18 @@ public class PassagemDao {
         }
     }
     
-    public void Cancela(int cancelamento) {
+    public void Cancela(int passagemId) {
         try {
             con = ConnectionFactory.getConnection();
-            String sql = "ALTER TABLE Passagem ALTER COLUMN psgm_cancelada tinyint(1)  ";
-            stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, passagem.getNumeroAssento());
-            stmt.setString(2, passagem.getIdPassageiro());
-            stmt.setString(3, passagem.getIdFuncionario());
-            stmt.setInt(4, passagem.getIdViagem());
-            stmt.setInt(5, 0);
+            String sql = "UPDATE Passagem SET psgm_cancelada = 1"
+                    + " WHERE psgm_id=?";
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, passagemId);
             stmt.executeUpdate();
-            rs = stmt.getGeneratedKeys();
-            rs.next();
-            passagem.setId(rs.getInt(1));
-            
-            AssentoOcupadoDao asoDao = new AssentoOcupadoDao();
-            AssentoOcupado aso = new AssentoOcupado();
-            aso.setIdViagem(passagem.getIdViagem());
-            aso.setNumeroAssento(Integer.parseInt(passagem.getNumeroAssento()));
-            asoDao.create(aso);
-            
         } catch (Exception e) {
-            System.err.println("Ocorreu um erro ao salvar " + e.getMessage());
+            System.err.println("Ocorreu um erro ao atualizar " + e.getMessage());
         } finally {
-            ConnectionFactory.closeConnection(con, stmt, rs);
+            ConnectionFactory.closeConnection(con, stmt);
         }
     }
     
@@ -126,16 +113,17 @@ public class PassagemDao {
         return lista;
     }
     
-    public List getInfos(int idPassagem) {
+    public List getInfos(int idPassagem, int cancelada) {
         List lista = new ArrayList();
         try {
             con = ConnectionFactory.getConnection();
             String qsl = "SELECT via_origem, via_destino, via_data, psgm_numeroAssento, psgm_passageiroID, via_preco FROM Passagem AS pas"
                     + " INNER JOIN Viagem AS via ON pas.psgm_viagemID=via.via_id"
-                    + " WHERE psgm_id=? AND psgm_cancelada=0";
+                    + " WHERE psgm_id=? AND psgm_cancelada=?";
             stmt = con.prepareStatement(qsl);
             //stmt.setInt(1, idViagem);
             stmt.setInt(1, idPassagem);
+            stmt.setInt(2, cancelada);
             rs = stmt.executeQuery();
             if (rs.next()) {
                 lista.add(rs.getString("via_origem"));
@@ -153,15 +141,16 @@ public class PassagemDao {
         return lista;
     }
     
-    public String getPassageiroNome(String cpf) {
+    public String getPassageiroNome(String cpf, int cancelada) {
         String nome = "";
         try {
             con = ConnectionFactory.getConnection();
             String sql = "SELECT pas_nome from Passagem as pas"
                     + " INNER JOIN Passageiro as psg on pas.psgm_passageiroID=psg.pas_cpf"
-                    + " WHERE psg.pas_cpf=? AND psgm_cancelada=0";
+                    + " WHERE psg.pas_cpf=? AND psgm_cancelada=?";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, cpf);
+            stmt.setInt(2, cancelada);
             rs = stmt.executeQuery();
             if (rs.next()) {
                 nome = rs.getString("pas_nome");

@@ -21,7 +21,7 @@ public class CancelarDao {
     protected PreparedStatement stmt = null;
     protected ResultSet rs = null;
     
-    public void create(Cancelar cancelar, AssentoOcupado aso) {
+    public void create(Cancelar cancelar, AssentoOcupado aso, Integer passagemId) {
         try {
             con = ConnectionFactory.getConnection();
             String sql = "INSERT INTO Cancelamento (can_passagemID) VALUE (?)";
@@ -32,7 +32,9 @@ public class CancelarDao {
             rs.next();
             cancelar.setId(rs.getInt(1));
             AssentoOcupadoDao asoDao = new AssentoOcupadoDao();
+            PassagemDao pasDao = new PassagemDao();
             asoDao.Delete(aso);
+            pasDao.Cancela(passagemId);
         } catch (Exception e) {
             System.err.println("Erro ao salvar em Cancelamento " + e.getMessage());
         } finally {

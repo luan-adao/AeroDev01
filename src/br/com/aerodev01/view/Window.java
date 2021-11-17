@@ -67,6 +67,13 @@ public class Window extends JFrame{
         painel.add(label);
     }
     
+    public void addLabelTitulo(JPanel painel, String text, int x, int y, int width, int FontSize) {
+        JLabel label = new JLabel(text);
+        label.setFont(new Font("Verdana", Font.BOLD, FontSize));
+        label.setBounds(x, y, width, 40);
+        painel.add(label);
+    }
+    
     public void addLabel(JPanel painel, String text, int x, int y, int width, int height) {
         JLabel label = new JLabel(text);
         label.setBounds(x, y, width, height);
