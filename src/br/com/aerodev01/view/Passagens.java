@@ -92,13 +92,14 @@ public class Passagens {
     
     private void carregaTabela(DefaultTableModel modeloTabela, int cancelada) {
         try {
-            modeloTabela.getDataVector().clear();
+            //modeloTabela.getDataVector().clear();
             List<Passagem> passagens = new ArrayList<>();
             PassagemDao pasDao = new PassagemDao();
             passagens =  pasDao.listAll(cancelada);
             
-            System.out.println(passagens.get(0).getIdPassageiro());
+            System.out.println(passagens);
             if (!passagens.isEmpty()) {
+                modeloTabela.getDataVector().clear();
                 for (Passagem pas: passagens) {
                     List passagemInfos = pasDao.getInfos(pas.getId(), cancelada);
                     System.out.println(pasDao.getPassageiroNome(pas.getIdPassageiro(), cancelada));
@@ -109,6 +110,9 @@ public class Passagens {
                         }    
                     );
                 }
+            } else {
+                modeloTabela.setRowCount(0);
+                System.out.println(passagens);
             }
         
         } catch (Exception e) {
