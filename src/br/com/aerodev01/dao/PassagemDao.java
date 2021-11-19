@@ -117,10 +117,10 @@ public class PassagemDao {
         List lista = new ArrayList();
         try {
             con = ConnectionFactory.getConnection();
-            String qsl = "SELECT via_origem, via_destino, via_data, psgm_numeroAssento, psgm_passageiroID, via_preco FROM Passagem AS pas"
+            String sql = "SELECT via_origem, via_destino, via_data, psgm_numeroAssento, psgm_passageiroID, via_preco FROM Passagem AS pas"
                     + " INNER JOIN Viagem AS via ON pas.psgm_viagemID=via.via_id"
                     + " WHERE psgm_id=? AND psgm_cancelada=?";
-            stmt = con.prepareStatement(qsl);
+            stmt = con.prepareStatement(sql);
             //stmt.setInt(1, idViagem);
             stmt.setInt(1, idPassagem);
             stmt.setInt(2, cancelada);

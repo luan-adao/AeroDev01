@@ -28,12 +28,13 @@ public class FuncionarioDao implements Serializable{
     public void Create(Funcionario funcionario) throws SQLException {
         try {
             con = ConnectionFactory.getConnection();
-            String sql = "INSERT INTO Funcionario (fun_cpf, fun_nome, fun_senha) values (?, ?, ?)";
+            String sql = "INSERT INTO Funcionario (fun_cpf, fun_nome, fun_senha, fun_sexo) values (?, ?, ?, ?)";
             //stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt = con.prepareStatement(sql);
             stmt.setString(1, funcionario.getCpf());
             stmt.setString(2, funcionario.getNome());
             stmt.setString(3, funcionario.getSenha());
+            stmt.setString(4, funcionario.getSexo());
             stmt.executeUpdate();
             //rs = stmt.getGeneratedKeys();
             JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso :)");

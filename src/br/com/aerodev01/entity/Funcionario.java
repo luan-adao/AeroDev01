@@ -13,6 +13,7 @@ public class Funcionario {
     private String cpf;
     private String nome;
     private String senha;
+    private String sexo;
 
     /**
      * @return the cpf
@@ -54,6 +55,20 @@ public class Funcionario {
      */
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    /**
+     * @return the sexo
+     */
+    public String getSexo() {
+        return sexo;
+    }
+
+    /**
+     * @param sexo the sexo to set
+     */
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
     }
     
     

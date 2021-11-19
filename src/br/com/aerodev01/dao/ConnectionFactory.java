@@ -18,13 +18,14 @@ import java.sql.SQLException;
 public class ConnectionFactory {
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String URL = "jdbc:mysql://localhost:3306/aerodevdb1";
+    private static final String TIMEZONE = "?useTimezone=true&serverTimezone=America/Sao_Paulo&zeroDateTimeBehavior=convertToNull";
     private static final String USER = "root";
     private static final String PASS = "admin";
     
     public static Connection getConnection() {
         try  {
             Class.forName(DRIVER);
-            return DriverManager.getConnection(URL, USER, PASS);
+            return DriverManager.getConnection(URL+TIMEZONE, USER, PASS);
         } catch (ClassNotFoundException | SQLException ex) {
             throw new RuntimeException("Erro na conexão", ex);
         
